@@ -3,15 +3,14 @@
 <%= link_to name, tasks_path(status: name) %>
 <% end %>
 
-<div>
-    <h2>今日のタスク一覧</h2>
-    <ul>
-        <% @today_tasks.each do |t| %>
-        <li><%= t.title %></li>
-        <% end %>
-    </ul>
-</div>
+<h2>今日のタスク一覧</h2>
+<ul>
+    <% @today_tasks.each do |t| %>
+    <li><%= t.title %></li>
+    <% end %>
+</ul>
 
+<h2>すべてのタスク一覧</h2>
 <table>
     <thecd>
         <tr>
