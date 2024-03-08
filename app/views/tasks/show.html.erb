@@ -1,0 +1,20 @@
+<%= link_to 'タスク一覧', tasks_path %>
+<%= link_to '編集', edit_task_path(@task) %>
+<%= button_to '削除', task_path(@task), method: :delete %>
+
+<dl>
+    <dt><b>タスク名</b></dt>
+    <dd><%= @task.title %></dd>
+
+    <dt><b>内容</b></dt>
+    <dd><%= @task.body %></dd>
+
+    <dt><b>開始日</b></dt>
+    <dd><%= @task.start_date %></dd>
+
+    <dt><b>期日</b></dt>
+    <dd><%= @task.end_date %></dd>
+
+    <dt><b>ステータス</b></dt>
+    <dd><%= @task.status %></dd>
+</dl>

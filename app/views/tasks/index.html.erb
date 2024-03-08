@@ -1,0 +1,34 @@
+<%= link_to '新規作成', new_task_path %>
+<% Task.statuses.keys.each do |name| %>
+<%= link_to name, tasks_path(status: name) %>
+<% end %>
+
+<div>
+    <h2>今日のタスク一覧</h2>
+    <ul>
+        <% @today_tasks.each do |t| %>
+        <li><%= t.title %></li>
+        <% end %>
+    </ul>
+</div>
+
+<table>
+    <thecd>
+        <tr>
+            <th>タスク名</th>
+            <th>開始日</th>
+            <th>期日</th>
+            <th>ステータス</th>
+        </tr>
+    </thecd>
+    <tbody>
+        <% @tasks.each do |task| %>
+        <tr>
+            <td><%= link_to task.title, task_path(task) %></td>
+            <td><%= task.start_date %></td>
+            <td><%= task.end_date %></td>
+            <td><%= task.status %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>

@@ -1,0 +1,31 @@
+<%= form_with model: @task, local: true do |f| %>
+    <table>
+        <tbody>
+            <tr>
+                <th>タスク名（必須）</th>
+                <td>
+                    <%= f.text_field :title %>
+                    <%= render_errors f.object, :title %>
+                </td>
+            </tr>
+            <tr>
+                <th>内容</th>
+                <td><%= f.text_area :body %></td>
+            </tr>
+            <tr>
+                <th>開始日</th>
+                <td><%= f.datetime_local_field  :start_date %></td>
+            </tr>
+            <tr>
+                <th>期日</th>
+                <td><%= f.datetime_local_field  :end_date %></td>
+            </tr>
+            <tr>
+                <th>ステータス</th>
+                <td><%= f.select :status, Task.statuses.keys %></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <%= f.submit %>
+<% end %>
