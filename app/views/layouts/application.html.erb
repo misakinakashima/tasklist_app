@@ -11,6 +11,35 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <nav>
+        <ul>
+          <li><%= link_to 'タスク一覧', tasks_path %></li>
+          <li><%= link_to 'タスク新規追加', new_task_path %></li>
+          <li><%= link_to 'タグ新規追加', new_tag_path %></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <article>
+        <%= yield %>
+      </article>
+
+      <aside>
+        <h3>ステータス一覧</h3>
+        <% Task.statuses.keys.each do |name| %>
+          <ul>
+              <li><%= link_to name, tasks_path(status: name) %></li>
+          </ul>
+        <% end %>
+
+        <h3>タグ一覧</h3>
+        <% Tag.all.each do |tag| %>
+          <ul>
+              <li><%= link_to tag.name, tags_path(tag_id: tag.id) %></li>
+          </ul>
+        <% end %>
+      </aside>
+    </main>
   </body>
 </html>

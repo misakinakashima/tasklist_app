@@ -1,0 +1,38 @@
+<h2>新規追加</h2>
+<%= form_with model: @tag, local: true do |f| %>
+    <table>
+        <tbody>
+            <tr>
+                <th>タグ名（必須）</th>
+                <td>
+                    <%= f.text_field :name %>
+                    <%= render_errors f.object, :name %>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <%= f.submit %>
+<% end %>
+
+<% if @tags.blank? == false %>
+<h2>タグ一覧</h2>
+<table>
+    <thead>
+        <tr>
+            <th>タグ名</th>
+            <th>編集</th>
+            <th>削除</th>
+        <tr>
+    </thead>
+    <tbody>
+        <% @tags.each do |tag| %>
+        <tr>
+            <td><%= tag.name %></td>
+            <td><%= link_to '編集', edit_tag_path(tag) %></td>
+            <td><%= link_to '削除', tag_path(tag), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %></td>
+        <tr>
+        <% end %>
+    </tbody>
+</table>
+<% end %>

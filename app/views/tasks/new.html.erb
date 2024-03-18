@@ -24,6 +24,10 @@
                 <th>ステータス</th>
                 <td><%= f.select :status, Task.statuses.keys %></td>
             </tr>
+            <tr>
+                <th>タグ</th>
+                <td><%= f.collection_check_boxes :tag_ids, Tag.all, :id, :name %></td>
+            </tr>
         </tbody>
     </table>
 

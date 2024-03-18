@@ -1,25 +1,76 @@
-<%= link_to '新規作成', new_task_path %>
-<% Task.statuses.keys.each do |name| %>
-<%= link_to name, tasks_path(status: name) %>
-<% end %>
-
-<h2>今日のタスク一覧</h2>
-<ul>
-    <% @today_tasks.each do |t| %>
-    <li><%= t.title %></li>
-    <% end %>
-</ul>
-
-<h2>すべてのタスク一覧</h2>
+<h2>本日締め切りのタスク一覧</h2>
+<% if @today_tasks.blank? == false %>
 <table>
-    <thecd>
+    <thead>
         <tr>
             <th>タスク名</th>
             <th>開始日</th>
             <th>期日</th>
             <th>ステータス</th>
+            <th>編集</th>
+            <th>削除</th>
         </tr>
-    </thecd>
+    </thead>
+    <tbody>
+        <% @today_tasks.each do |task| %>
+        <tr>
+            <td><%= link_to task.title, task_path(task) %></td>
+            <td><%= task.start_date %></td>
+            <td><%= task.end_date %></td>
+            <td><%= task.status %></td>
+            <td><%= link_to "編集", edit_task_path(task) %></td>
+            <td><%= link_to "削除", task_path(task), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+<% else %>
+    <p>本日締め切りのタスクはありません</p>
+<% end %>
+
+<h2>期限遅れのタスク一覧</h2>
+<% if @delay_tasks.blank? == false %>
+<table>
+    <thead>
+        <tr>
+            <th>タスク名</th>
+            <th>開始日</th>
+            <th>期日</th>
+            <th>ステータス</th>
+            <th>編集</th>
+            <th>削除</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @delay_tasks.each do |task| %>
+        <tr>
+            <td><%= link_to task.title, task_path(task) %></td>
+            <td><%= task.start_date %></td>
+            <td><%= task.end_date %></td>
+            <td><%= task.status %></td>
+            <td><%= link_to "編集", edit_task_path(task) %></td>
+            <td><%= link_to "削除", task_path(task), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+<% else %>
+    <p>期限切れのタスクはありません</p>
+<% end %>
+
+<h2>すべてのタスク一覧</h2>
+<% if @tasks.blank? == false %>
+<table>
+    <thead>
+        <tr>
+            <th>タスク名</th>
+            <th>開始日</th>
+            <th>期日</th>
+            <th>ステータス</th>
+            <th>編集</th>
+            <th>削除</th>
+        </tr>
+    </thead>
     <tbody>
         <% @tasks.each do |task| %>
         <tr>
@@ -27,7 +78,12 @@
             <td><%= task.start_date %></td>
             <td><%= task.end_date %></td>
             <td><%= task.status %></td>
+            <td><%= link_to "編集", edit_task_path(task) %></td>
+            <td><%= link_to "削除", task_path(task), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %></td>
         </tr>
         <% end %>
     </tbody>
 </table>
+<% else %>
+    <p>タスクはありません</p>
+<% end %>

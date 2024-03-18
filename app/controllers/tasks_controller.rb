@@ -2,7 +2,9 @@ class TasksController < ApplicationController
 
     def index
         @tasks = params[:status].nil? ? Task.all : Task.where(status: params[:status])
-        @today_tasks = Task.where(end_date: 2024-03-07)
+        @today_tasks = Task.where(end_date: Date.today).where.not(status: "complate")
+        @delay_tasks = Task.where(end_date: (..Date.yesterday)).where.not(status: "complate")
+        @tags = Tag.all
     end
 
     def new
@@ -11,7 +13,7 @@ class TasksController < ApplicationController
 
     def create
         @task = Task.new
-        @task.attributes = params.require(:task).permit(:title, :body, :start_date, :end_date, :status)
+        @task.attributes = params.require(:task).permit(:title, :body, :start_date, :end_date, :status, tag_ids: [])
         @task.save!
 
         redirect_to task_path(@task)
@@ -29,7 +31,7 @@ class TasksController < ApplicationController
 
     def update
         @task = Task.find params[:id]
-        @task.attributes = params.require(:task).permit(:title, :body, :start_date, :end_date, :status)
+        @task.attributes = params.require(:task).permit(:title, :body, :start_date, :end_date, :status, tag_ids: [])
         @task.save!
 
         redirect_to task_path(@task)

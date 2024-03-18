@@ -1,0 +1,15 @@
+<%= form_with model: @tag, local: true do |f| %>
+    <table>
+        <tbody>
+            <tr>
+                <th>タグ名（必須）</th>
+                <td>
+                    <%= f.text_field :name %>
+                    <%= render_errors f.object, :name %>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <%= f.submit %>
+<% end %>
